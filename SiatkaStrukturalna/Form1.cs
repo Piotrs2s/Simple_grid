@@ -16,144 +16,169 @@ namespace SiatkaStrukturalna
     {
       
 
-        private readonly Graphics _graphics;
+        Graphics Graphics;
 
-        Brush brush = new SolidBrush(Color.Black);
-        Pen pen = new Pen(Color.Black);
+        List<Point> Nodes;
+        List<Element> ElementsList;
 
-        private List<Point> Vertices;
-        private List<Element> ElementsList;
-
-        private int distance = 50;
 
         public Form1()
-
         {
             InitializeComponent();
-            _graphics = pictureBox1.CreateGraphics();
-            _graphics.Clear(Color.White);
+
+            //Prepare bitmap
+            Graphics = pictureBox1.CreateGraphics();
+
         }
 
-        private void pictureBox1_Click(object sender, EventArgs e)
+        //Generate grid button
+        private void generateButton_Click(object sender, EventArgs e)
         {
-            Vertices = GeneratePoints(distance);
-            GenerateElements(Vertices, distance, pen);
-            GenerateNet();
+            int elementSize = elementSizeTrackBar.Value;
+            
+            pictureBox1.Refresh();
+            Nodes = GeneratePoints(elementSize);
+            GenerateElements(Nodes, elementSize);
+            GenerateGrid();
         }
 
-        public List<Point> GeneratePoints(int distanse)
+        ////Generate grid of nodes
+        private List<Point> GeneratePoints(int distance)
         {
-            Vertices = new List<Point>();
-            int size = pictureBox1.Width;  
+            Nodes = new List<Point>(); //List for nodes
+            int size = pictureBox1.Width; //Drawing area size  
 
-            for (int i = 0; i < size; i = i + distanse)
+            //distance - distance between nodes based on element size
+            for (int i = 0; i < size ; i = i + distance)
             {
-                Point px = new Point(i, 0);
-                Vertices.Add(px);
-                for (int j = distance; j < size; j = j + distanse)
+                Point px = new Point(i, 0); //Start node for each column
+                Nodes.Add(px);
+                               
+                for (int j = distance; j < size ; j = j + distance)
                 {
-                    Point py = new Point(i, j);
-                    Vertices.Add(py);
+                    Point py = new Point(i, j); //Create column of nodes
+                    Nodes.Add(py);                    
                 }
 
             }
-            
-            //foreach (Point point in _vertices)
-            //{
-            //    _graphics.FillRectangle(brush, point.X, point.Y, 1, 1);
-            //}
-
-           
-            return Vertices;
+         
+            return Nodes;
         }
 
-
-        public void GenerateElements(List<Point> vertices, int distanse, Pen pen)
+        //Generate elements using nodes
+        private void GenerateElements(List<Point> nodes, int distance)
         {
+            //List for elements
             ElementsList = new List<Element>();
 
-            for (int i = 0; i < vertices.Count; i++)
-            {
-                Point a = new Point(vertices[i].X, vertices[i].Y);
-                Point b = new Point(vertices[i].X + distanse, vertices[i].Y);
-                Point c = new Point(vertices[i].X, vertices[i].Y + distanse);
 
-                if (Helicity(a.X, a.Y, b.X, b.Y, c.X, c.Y))
-                {
-                    Element element = new Element(a, b, c);
+            for (int i = 0; i < nodes.Count; i++)
+            {                               
+                    //First triangle from 4 nodes group
+                    var a = new Point(nodes[i].X, nodes[i].Y);
+                    var b = new Point(nodes[i].X + distance, nodes[i].Y);
+                    var c = new Point(nodes[i].X, nodes[i].Y + distance);
 
-                    ElementsList.Add(element);
-                }
+                    //Check if helicity of element is correct (it have to be the same for all elements)
+                    if (Helicity(a, b, c) && nodes[i].X + distance < pictureBox1.Width && nodes[i].Y + distance < pictureBox1.Height )
+                    {
+                        Element element = new Element(a, b, c);
+                        ElementsList.Add(element);
+                    }
+                
+                    //Seckond triangle from 4 nodes group
+                    var d = new Point(nodes[i].X, nodes[i].Y + distance);
+                    var e = new Point(nodes[i].X + distance, nodes[i].Y);
+                    var f = new Point(nodes[i].X + distance, nodes[i].Y + distance);
 
-                a = new Point(vertices[i].X, vertices[i].Y + distanse);
-                b = new Point(vertices[i].X + distanse, vertices[i].Y);
-                c = new Point(vertices[i].X + distanse, vertices[i].Y + distanse);
+                    if (Helicity(d, e, f) && nodes[i].X + distance < pictureBox1.Width && nodes[i].Y + distance < pictureBox1.Height)
+                    {
+                        Element element2 = new Element(d, e, f);
+                        ElementsList.Add(element2);
 
-                if (Helicity(a.X, a.Y, b.X, b.Y, c.X, c.Y))
-                {
-                    Element element = new Element(a, b, c);
-
-                    ElementsList.Add(element);
-
-                }
+                    }
+                
+                
             }
         }
 
-
-        private static bool Helicity(int ax, int ay, int bx, int by, int cx, int cy)
+        //Check helicity of triangle element
+        static bool Helicity(Point a, Point b, Point c)
         {
 
-            if ((ax * by + bx * cy + cx * ay - cx * by - ax * cy - bx * ay) > 0)
+            if ((a.X * b.Y + b.X * c.Y + c.X * a.Y - c.X * b.Y - a.X * c.Y - b.X * a.Y) > 0)
             {
                 return true;
             }
             return false;
         }
 
-
-        public void GenerateNet()
+        //Draw grid
+        public void GenerateGrid()
         {
+            var blackPen = new Pen(Color.FromArgb(255,0,0,0));
+
             for (int i = 0; i < ElementsList.Count; i++)
             {
-                _graphics.DrawLine(pen, ElementsList[i].a, ElementsList[i].b);
-                _graphics.DrawLine(pen, ElementsList[i].b, ElementsList[i].c);
-                _graphics.DrawLine(pen, ElementsList[i].c, ElementsList[i].a);
+                Graphics.DrawLine(blackPen, ElementsList[i].a, ElementsList[i].b);
+                Graphics.DrawLine(blackPen, ElementsList[i].b, ElementsList[i].c);
+                Graphics.DrawLine(blackPen, ElementsList[i].c, ElementsList[i].a);
             }
         }
 
-
-        private void button1_Click(object sender, EventArgs e)
+        //Show TrackBar value
+        private void elementSizeTrackBar_Scroll(object sender, EventArgs e)
         {
-            Import(ElementsList, Vertices);
+
+            elementSizeLabel.Text = "Element size: " + (elementSizeTrackBar.Value);
         }
 
-      
-
-        private void Import(List<Element> Elementslist, List<Point> VerticesList)
+        //Results/import option, saves files with information about nodes and elements
+        private void importToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            Import(ElementsList, Nodes);
+        }
 
-            using (System.IO.StreamWriter file =
-         new System.IO.StreamWriter("C:\\Users\\Piotrek\\Desktop\\Results\\Verticies.txt"))
+
+        //Save informations about elements and nodes as txt in choosen folder
+        private void Import(List<Element> Elementslist, List<Point> NodesList)
+        {
+            
+        
+            FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
+            folderBrowserDialog.Description = "Save files in:";
+
+            if (folderBrowserDialog.ShowDialog() == DialogResult.OK && !string.IsNullOrWhiteSpace(folderBrowserDialog.SelectedPath))
             {
-                int o = 0;
-                foreach (Point p in VerticesList)
+                //Save elements and coordinates of their nodes
+                using (StreamWriter file = new StreamWriter(string.Concat(folderBrowserDialog.SelectedPath,"\\Elements.txt") ))
                 {
+                    int number = 0;
+                    foreach (Element E in Elementslist)
+                    {
+                        file.WriteLine("Element {0}: a={1} b={2} c={3}\n", number, E.a, E.b, E.c);
+                        number++;
 
-                    file.WriteLine("Point {0}: {1}",o, p);
-                    o++;
+                     }
                 }
-            }
-
-            using (System.IO.StreamWriter file =
-           new System.IO.StreamWriter("C:\\Users\\Piotrek\\Desktop\\Results\\Elements.txt"))
-            {                             
-                int o = 0;
-                foreach (Element E in Elementslist)
-                {                                     
-                    file.WriteLine("Element {0}: a={1} b={2} c={3}\n", o, E.a, E.b, E.c);
-                    o++;
+                //List of nodes
+                using (StreamWriter file = new StreamWriter(string.Concat(folderBrowserDialog.SelectedPath, "\\Nodes.txt") ))
+                {
+                    int number = 0;
+                    foreach (Point p in NodesList)
+                    {
+                        file.WriteLine("Point {0}: {1}", number, p);
+                        number++;                        
+                    }
                 }
-            }
+            }                     
         }
+
+
+
+
+        
+
+        
     }
 }

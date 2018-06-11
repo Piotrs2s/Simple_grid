@@ -18,3 +18,13 @@ C:\Users\Piotrek\Studia\Geometria Obliczeniowa\Siatka strukturalna — kopia\Sia
 C:\Users\Piotrek\Studia\Geometria Obliczeniowa\Siatka strukturalna — kopia\SiatkaStrukturalna\SiatkaStrukturalna\obj\Debug\SiatkaStrukturalna.csproj.CoreCompileInputs.cache
 C:\Users\Piotrek\Studia\Geometria Obliczeniowa\Siatka strukturalna — kopia\SiatkaStrukturalna\SiatkaStrukturalna\obj\Debug\SiatkaStrukturalna.exe
 C:\Users\Piotrek\Studia\Geometria Obliczeniowa\Siatka strukturalna — kopia\SiatkaStrukturalna\SiatkaStrukturalna\obj\Debug\SiatkaStrukturalna.pdb
+C:\Users\Piotrek\Studia\Geometria Obliczeniowa\Repo\Simple_grid\SiatkaStrukturalna\bin\Debug\SiatkaStrukturalna.exe.config
+C:\Users\Piotrek\Studia\Geometria Obliczeniowa\Repo\Simple_grid\SiatkaStrukturalna\bin\Debug\SiatkaStrukturalna.exe
+C:\Users\Piotrek\Studia\Geometria Obliczeniowa\Repo\Simple_grid\SiatkaStrukturalna\bin\Debug\SiatkaStrukturalna.pdb
+C:\Users\Piotrek\Studia\Geometria Obliczeniowa\Repo\Simple_grid\SiatkaStrukturalna\obj\Debug\SiatkaStrukturalna.csprojResolveAssemblyReference.cache
+C:\Users\Piotrek\Studia\Geometria Obliczeniowa\Repo\Simple_grid\SiatkaStrukturalna\obj\Debug\SiatkaStrukturalna.Form1.resources
+C:\Users\Piotrek\Studia\Geometria Obliczeniowa\Repo\Simple_grid\SiatkaStrukturalna\obj\Debug\SiatkaStrukturalna.Properties.Resources.resources
+C:\Users\Piotrek\Studia\Geometria Obliczeniowa\Repo\Simple_grid\SiatkaStrukturalna\obj\Debug\SiatkaStrukturalna.csproj.GenerateResource.Cache
+C:\Users\Piotrek\Studia\Geometria Obliczeniowa\Repo\Simple_grid\SiatkaStrukturalna\obj\Debug\SiatkaStrukturalna.csproj.CoreCompileInputs.cache
+C:\Users\Piotrek\Studia\Geometria Obliczeniowa\Repo\Simple_grid\SiatkaStrukturalna\obj\Debug\SiatkaStrukturalna.exe
+C:\Users\Piotrek\Studia\Geometria Obliczeniowa\Repo\Simple_grid\SiatkaStrukturalna\obj\Debug\SiatkaStrukturalna.pdb
