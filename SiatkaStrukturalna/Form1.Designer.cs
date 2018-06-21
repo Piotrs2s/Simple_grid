@@ -65,11 +65,11 @@
             this.elementSizeTrackBar.LargeChange = 10;
             this.elementSizeTrackBar.Location = new System.Drawing.Point(738, 154);
             this.elementSizeTrackBar.Maximum = 250;
-            this.elementSizeTrackBar.Minimum = 1;
+            this.elementSizeTrackBar.Minimum = 8;
             this.elementSizeTrackBar.Name = "elementSizeTrackBar";
             this.elementSizeTrackBar.Size = new System.Drawing.Size(217, 56);
             this.elementSizeTrackBar.TabIndex = 4;
-            this.elementSizeTrackBar.Value = 1;
+            this.elementSizeTrackBar.Value = 8;
             this.elementSizeTrackBar.Scroll += new System.EventHandler(this.elementSizeTrackBar_Scroll);
             // 
             // elementSizeLabel
@@ -104,7 +104,7 @@
             // 
             this.importToolStripMenuItem.Name = "importToolStripMenuItem";
             this.importToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
-            this.importToolStripMenuItem.Text = "Import";
+            this.importToolStripMenuItem.Text = "Save";
             this.importToolStripMenuItem.Click += new System.EventHandler(this.importToolStripMenuItem_Click);
             // 
             // Form1

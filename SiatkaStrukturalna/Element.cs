@@ -7,8 +7,10 @@ using System.Drawing;
 
 namespace SiatkaStrukturalna
 {
+    //Represents single element made from 3 nodes
     public class Element
     {        
+            //a, b, c - Nodes/Vertices of element
             public Point a { get; set; }
             public Point b { get; set; }
             public Point c { get; set; }
@@ -19,21 +21,7 @@ namespace SiatkaStrukturalna
             a = A;
             b = B;
             c = C;
-           }
-        
+           }               
     }
-
-    //public class Point
-    //{
-    //    public int X { get; set; }
-    //    public int Y { get; set; }
-    //    public int Index { get; set; }
-
-    //    public Point(int x, int y, int index)
-    //    {
-    //        X = x;
-    //        Y = y;
-    //        Index = index;
-    //    }
-    //}
+    
 }
